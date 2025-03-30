@@ -146,6 +146,55 @@
       .day-columns {
         flex-direction: column;
       }
+
+      /* ปรับความกว้างและขอบในมือถือ */
+body {
+  box-sizing: border-box;
+}
+
+.timetable {
+  margin: 20px 10px;
+  padding: 20px;
+}
+
+#toggle-theme {
+  width: 100%;
+  max-width: 280px;
+  font-size: 16px;
+}
+
+.subject {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.subject-info {
+  width: 100%;
+}
+
+.teacher-img {
+  align-self: flex-end;
+}
+
+@media (max-width: 480px) {
+  .timetable h1 {
+    font-size: 28px;
+  }
+  .name {
+    font-size: 16px;
+  }
+  .day h2 {
+    font-size: 20px;
+  }
+  .subject p {
+    font-size: 13px;
+  }
+  .teacher-img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
     }
   </style>
 </head>
