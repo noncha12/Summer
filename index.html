@@ -1,1 +1,251 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ff85b3" />
+  <title>ตารางเรียนซัมเมอร์</title>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt&family=Itim&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Prompt', 'Itim', sans-serif;
+      background: linear-gradient(135deg, #1f2235, #2c2f4a);
+      color: #fff;
+      box-sizing: border-box;
+    }
+
+    .timetable {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 25px;
+      background-color: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .timetable h1 {
+      text-align: center;
+      font-size: 36px;
+      color: #ffb6e0;
+      margin-bottom: 10px;
+    }
+
+    .name {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #ffc0f0;
+    }
+
+    #toggle-theme {
+      display: block;
+      margin: 0 auto 30px;
+      background: #444c5c;
+      color: #fff;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: 'Itim';
+      max-width: 280px;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    .day-columns {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .day {
+      flex: 1;
+      min-width: 300px;
+      padding: 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #4e4376, #2b5876);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .day h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #ffccf2;
+    }
+
+    .subject {
+      background: linear-gradient(135deg, #1d1f2b, #292d3e);
+      border-radius: 15px;
+      margin-bottom: 20px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-direction: row;
+    }
+
+    .subject-info {
+      flex: 1;
+    }
+
+    .subject p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #ddd;
+    }
+
+    .subject strong {
+      color: #ff9acb;
+    }
+
+    .subject i {
+      margin-right: 6px;
+      color: #ff85b3;
+    }
+
+    .teacher-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid #fff;
+    }
+
+    /* Light Mode */
+    body.light {
+      background: linear-gradient(135deg, #fce4ec, #e0f7fa);
+      color: #333;
+    }
+
+    body.light .timetable {
+      background-color: #ffffffcc;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    body.light h1 {
+      color: #d81b60;
+    }
+
+    body.light .name {
+      color: #e91e63;
+    }
+
+    body.light #toggle-theme {
+      background: #f48fb1;
+      color: white;
+    }
+
+    body.light .day {
+      background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    }
+
+    body.light .day h2 {
+      color: #880e4f;
+    }
+
+    body.light .subject {
+      background: #ffffff;
+      color: #333;
+    }
+
+    body.light .subject p {
+      color: #444;
+    }
+
+    body.light .subject strong {
+      color: #c2185b;
+    }
+
+    body.light .subject i {
+      color: #e91e63;
+    }
+
+    @media (max-width: 768px) {
+      .subject {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .teacher-img {
+        width: 60px;
+        height: 60px;
+        align-self: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="timetable">
+    <h1><i class="fa-solid fa-calendar-days"></i> ตารางเรียนซัมเมอร์</h1>
+    <p class="name">🌸 NATCHANON 🌸</p>
+    <button id="toggle-theme"><i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode</button>
+
+    <div class="day-columns">
+      <!-- เสาร์ -->
+      <div class="day">
+        <h2><i class="fa-solid fa-sun"></i> เสาร์</h2>
+
+        <div class="subject">
+          <img src="Kritsanapon.jpg" class="teacher-img" alt="อ.กฤษณพล">
+          <div class="subject-info">
+            <p><i class="fa-solid fa-book-open"></i> <strong>โครงสร้างคอมพิวเตอร์และระบบปฏิบัติการ</strong></p>
+            <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
+            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01302 / อ. กฤษณพล เกิดทองคำ</p>
+          </div>
+        </div>
+
+        <div class="subject">
+          <img src="Pakpoom.jpg" class="teacher-img" alt="อ.ภาคภูมิ">
+          <div class="subject-info">
+            <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
+            <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 21:00</p>
+            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- อาทิตย์ -->
+      <div class="day">
+        <h2><i class="fa-solid fa-heart"></i> อาทิตย์</h2>
+
+        <div class="subject">
+          <img src="Wirat.jpg" class="teacher-img" alt="อ.วิรัตร">
+          <div class="subject-info">
+            <p><i class="fa-solid fa-book-open"></i> <strong>คอมพิวเตอร์กราฟิกและการสร้างสื่อผสม</strong></p>
+            <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
+            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01312 / อ. วิรัตร บุตรวาปี</p>
+          </div>
+        </div>
+
+        <div class="subject">
+          <img src="Pakpoom.jpg" class="teacher-img" alt="อ.ภาคภูมิ">
+          <div class="subject-info">
+            <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
+            <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 20:00</p>
+            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggle-theme");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      const isLight = document.body.classList.contains("light");
+      toggleBtn.innerHTML = isLight
+        ? '<i class="fa-solid fa-moon"></i> เปลี่ยนเป็น Dark Mode'
+        : '<i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode';
+    });
+  </script>
+</body>
+</html>
 
