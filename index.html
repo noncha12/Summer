@@ -28,7 +28,7 @@
 
     .timetable h1 {
       text-align: center;
-      font-size: 36px;
+      font-size: 32px;
       color: #ffb6e0;
       margin-bottom: 10px;
     }
@@ -64,16 +64,16 @@
 
     .day {
       flex: 1;
-      min-width: 300px;
+      min-width: 280px;
       padding: 20px;
       border-radius: 20px;
       background: linear-gradient(135deg, #4e4376, #2b5876);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
 
     .day h2 {
       text-align: center;
-      font-size: 24px;
+      font-size: 22px;
       margin-bottom: 20px;
       color: #ffccf2;
     }
@@ -83,19 +83,27 @@
       border-radius: 15px;
       margin-bottom: 20px;
       padding: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 15px;
-      flex-direction: row;
+      text-align: center;
+    }
+
+    .teacher-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 15px;
+      object-fit: cover;
+      border: 2px solid #fff;
     }
 
     .subject-info {
-      flex: 1;
+      margin-top: 10px;
     }
 
     .subject p {
-      margin: 5px 0;
+      margin: 6px 0;
       font-size: 14px;
       color: #ddd;
     }
@@ -109,14 +117,6 @@
       color: #ff85b3;
     }
 
-    .teacher-img {
-      width: 70px;
-      height: 70px;
-      border-radius: 12px;
-      object-fit: cover;
-      border: 2px solid #fff;
-    }
-
     /* Light Mode */
     body.light {
       background: linear-gradient(135deg, #fce4ec, #e0f7fa);
@@ -125,7 +125,7 @@
 
     body.light .timetable {
       background-color: #ffffffcc;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
 
     body.light h1 {
@@ -167,85 +167,82 @@
     }
 
     @media (max-width: 768px) {
-      .subject {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
+      .timetable h1 { font-size: 28px; }
+      .day h2 { font-size: 20px; }
+      .subject p { font-size: 13px; }
       .teacher-img {
         width: 60px;
         height: 60px;
-        align-self: flex-end;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="timetable">
-    <h1><i class="fa-solid fa-calendar-days"></i> ตารางเรียนซัมเมอร์</h1>
-    <p class="name">🌸 NATCHANON 🌸</p>
-    <button id="toggle-theme"><i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode</button>
+<div class="timetable">
+  <h1><i class="fa-solid fa-calendar-days"></i> ตารางเรียนซัมเมอร์</h1>
+  <p class="name">🌸 NATCHANON 🌸</p>
+  <button id="toggle-theme"><i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode</button>
 
-    <div class="day-columns">
-      <!-- เสาร์ -->
-      <div class="day">
-        <h2><i class="fa-solid fa-sun"></i> เสาร์</h2>
+  <div class="day-columns">
+    <!-- เสาร์ -->
+    <div class="day">
+      <h2><i class="fa-solid fa-sun"></i> เสาร์</h2>
 
-        <div class="subject">
-          <img src="Kritsanapon.jpg" class="teacher-img" alt="อ.กฤษณพล">
-          <div class="subject-info">
-            <p><i class="fa-solid fa-book-open"></i> <strong>โครงสร้างคอมพิวเตอร์และระบบปฏิบัติการ</strong></p>
-            <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
-            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01302 / อ. กฤษณพล เกิดทองคำ</p>
-          </div>
-        </div>
-
-        <div class="subject">
-          <img src="Pakpoom.jpg" class="teacher-img" alt="อ.ภาคภูมิ">
-          <div class="subject-info">
-            <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
-            <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 21:00</p>
-            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
-          </div>
+      <div class="subject">
+        <img src="Kritsanapon.jpg" class="teacher-img" alt="อ.กฤษณพล">
+        <div class="subject-info">
+          <p><i class="fa-solid fa-book-open"></i> <strong>โครงสร้างคอมพิวเตอร์และระบบปฏิบัติการ</strong></p>
+          <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
+          <p><i class="fa-solid fa-location-dot"></i> ห้อง 01302 / อ. กฤษณพล เกิดทองคำ</p>
         </div>
       </div>
 
-      <!-- อาทิตย์ -->
-      <div class="day">
-        <h2><i class="fa-solid fa-heart"></i> อาทิตย์</h2>
-
-        <div class="subject">
-          <img src="Wirat.jpg" class="teacher-img" alt="อ.วิรัตร">
-          <div class="subject-info">
-            <p><i class="fa-solid fa-book-open"></i> <strong>คอมพิวเตอร์กราฟิกและการสร้างสื่อผสม</strong></p>
-            <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
-            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01312 / อ. วิรัตร บุตรวาปี</p>
-          </div>
+      <div class="subject">
+        <img src="Pakpoom.jpg" class="teacher-img" alt="อ.ภาคภูมิ">
+        <div class="subject-info">
+          <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
+          <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 21:00</p>
+          <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
         </div>
+      </div>
+    </div>
 
-        <div class="subject">
-          <img src="Pakpoom.jpg" class="teacher-img" alt="อ.ภาคภูมิ">
-          <div class="subject-info">
-            <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
-            <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 20:00</p>
-            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
-          </div>
+    <!-- อาทิตย์ -->
+    <div class="day">
+      <h2><i class="fa-solid fa-heart"></i> อาทิตย์</h2>
+
+      <div class="subject">
+        <img src="Wirat.jpg" class="teacher-img" alt="อ.วิรัตร">
+        <div class="subject-info">
+          <p><i class="fa-solid fa-book-open"></i> <strong>คอมพิวเตอร์กราฟิกและการสร้างสื่อผสม</strong></p>
+          <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
+          <p><i class="fa-solid fa-location-dot"></i> ห้อง 01312 / อ. วิรัตร บุตรวาปี</p>
+        </div>
+      </div>
+
+      <div class="subject">
+        <img src="Pakpoom.jpg" class="teacher-img" alt="อ.ภาคภูมิ">
+        <div class="subject-info">
+          <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
+          <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 20:00</p>
+          <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    const toggleBtn = document.getElementById("toggle-theme");
-    toggleBtn.addEventListener("click", () => {
-      document.body.classList.toggle("light");
-      const isLight = document.body.classList.contains("light");
-      toggleBtn.innerHTML = isLight
-        ? '<i class="fa-solid fa-moon"></i> เปลี่ยนเป็น Dark Mode'
-        : '<i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode';
-    });
-  </script>
+<script>
+  const toggleBtn = document.getElementById("toggle-theme");
+  toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+    const isLight = document.body.classList.contains("light");
+    toggleBtn.innerHTML = isLight
+      ? '<i class="fa-solid fa-moon"></i> เปลี่ยนเป็น Dark Mode'
+      : '<i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode';
+  });
+</script>
+
 </body>
 </html>
-
