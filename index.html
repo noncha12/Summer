@@ -253,6 +253,7 @@
 body.light .current-time {
   color: #6a1b9a;
 }
+
   </style>
 
 </head>
@@ -352,45 +353,51 @@ body.light .current-time {
   let drops = [];
 
   function initRain() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    drops = [];
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  drops = [];
 
-    for (let i = 0; i < 100; i++) {
-      drops.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        length: Math.random() * 20 + 10,
-        speed: Math.random() * 1.5 + 1,
-        xSpeed: Math.random() * 0.5 + 0.5
-      });
-    }
-  }
-
-  function drawRain() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = "rgba(173,216,230,0.5)";
-    ctx.lineWidth = 1.2;
-
-    drops.forEach(drop => {
-      ctx.beginPath();
-      ctx.moveTo(drop.x, drop.y);
-      ctx.lineTo(drop.x - drop.xSpeed * 2, drop.y + drop.length);
-      ctx.stroke();
-
-      drop.x -= drop.xSpeed;
-      drop.y += drop.speed;
-
-      if (drop.y > canvas.height || drop.x < 0) {
-        drop.y = -drop.length;
-        drop.x = Math.random() * canvas.width;
-      }
+  for (let i = 0; i < 100; i++) {
+    const direction = Math.random() < 0.5 ? -1 : 1; // ซ้ายหรือขวา
+    drops.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      length: Math.random() * 20 + 10,
+      speed: Math.random() * 1.2 + 0.8,
+      xSpeed: direction * (Math.random() * 0.5 + 0.2), // แกว่งซ้ายขวาเบา ๆ
     });
-
-    if (!body.classList.contains("light")) {
-      requestAnimationFrame(drawRain);
-    }
   }
+}
+
+
+function drawRain() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = "rgba(173,216,230,0.3)";
+  ctx.lineWidth = 1.1;
+
+  drops.forEach(drop => {
+    ctx.beginPath();
+    ctx.moveTo(drop.x, drop.y);
+    ctx.lineTo(drop.x + drop.xSpeed * 2, drop.y + drop.length);
+    ctx.stroke();
+
+    drop.x += drop.xSpeed;
+    drop.y += drop.speed;
+
+    // ถ้าหลุดขอบจอ ให้กลับมาใหม่
+    if (drop.y > canvas.height || drop.x < -20 || drop.x > canvas.width + 20) {
+      const direction = Math.random() < 0.5 ? -1 : 1;
+      drop.y = -drop.length;
+      drop.x = Math.random() * canvas.width;
+      drop.xSpeed = direction * (Math.random() * 0.5 + 0.2);
+    }
+  });
+
+  if (!body.classList.contains("light")) {
+    requestAnimationFrame(drawRain);
+  }
+}
+
 
   function startRainIfDarkMode() {
     if (!body.classList.contains("light")) {
