@@ -26,6 +26,18 @@
       background-color: rgba(255, 255, 255, 0.05);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
+    body.light .timetable {
+  background: linear-gradient(270deg, #ffe0f0, #f6c2ff, #ffbddf);
+  background-size: 400% 400%;
+  animation: softPinkFlow 30s ease infinite;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes softPinkFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
     .timetable h1 {
       text-align: center;
@@ -186,6 +198,8 @@
       color: #4a148c;
     }
 
+
+    
     body.light .subject {
       background: #ffffff;
       color: #333;
