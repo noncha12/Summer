@@ -117,53 +117,92 @@
       color: #ff85b3;
     }
 
-    /* Light Mode */
+    .lms-link {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lms-link a {
+      display: inline-block;
+      background: #ff85b3;
+      color: #1f2235;
+      padding: 8px 14px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .lms-link a i {
+      margin-right: 5px;
+      color: #000 !important;
+    }
+
+    .lms-link a:hover {
+      background: #ff5d9e;
+    }
+
+    /* Light Mode: พื้นหลังฟ้า-ม่วงแบบพาสเทล */
     body.light {
-      background: linear-gradient(135deg, #fce4ec, #e0f7fa);
+      background: linear-gradient(135deg, #dceefb, #ede7f6);
       color: #333;
     }
 
     body.light .timetable {
-      background-color: #ffffffcc;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     }
 
     body.light h1 {
-      color: #d81b60;
+      color: #6a1b9a;
     }
 
     body.light .name {
-      color: #e91e63;
+      color: #7b1fa2;
     }
 
     body.light #toggle-theme {
-      background: #f48fb1;
+      background: #b39ddb;
       color: white;
     }
 
     body.light .day {
-      background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+      background: linear-gradient(135deg, #e3f2fd, #ede7f6);
     }
 
     body.light .day h2 {
-      color: #880e4f;
+      color: #4a148c;
     }
 
     body.light .subject {
       background: #ffffff;
       color: #333;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.05);
     }
 
     body.light .subject p {
-      color: #444;
+      color: #555;
     }
 
     body.light .subject strong {
-      color: #c2185b;
+      color: #8e24aa;
     }
 
     body.light .subject i {
-      color: #e91e63;
+      color: #ab47bc;
+    }
+
+    body.light .lms-link a {
+      background: #ba68c8;
+      color: white;
+    }
+
+    body.light .lms-link a:hover {
+      background: #9c27b0;
     }
 
     @media (max-width: 768px) {
@@ -185,16 +224,19 @@
   <button id="toggle-theme"><i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode</button>
 
   <div class="day-columns">
-    <!-- เสาร์ -->
     <div class="day">
       <h2><i class="fa-solid fa-sun"></i> เสาร์</h2>
-
       <div class="subject">
         <img src="Kritsanapon.jpg" class="teacher-img" alt="อ.กฤษณพล">
         <div class="subject-info">
           <p><i class="fa-solid fa-book-open"></i> <strong>โครงสร้างคอมพิวเตอร์และระบบปฏิบัติการ</strong></p>
           <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
           <p><i class="fa-solid fa-location-dot"></i> ห้อง 01302 / อ. กฤษณพล เกิดทองคำ</p>
+          <div class="lms-link">
+            <a href="https://lms.rmuti.ac.th/course/view.php?id=3461" target="_blank">
+              <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
+            </a>
+          </div>
         </div>
       </div>
 
@@ -204,20 +246,31 @@
           <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
           <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 21:00</p>
           <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
+          <div class="lms-link">
+            <a href="https://lms.rmuti.ac.th/course/view.php?id=4135" target="_blank">
+              <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDq0gaktp6bBscqLlPhHDJtgIb0i7crSns4Zt69vPdgFcStQ/formResponse?usp=pp_url&entry.571757533=67152340020-1&01&entry.482483840=Mr.%20NATCHANON%20KUNSAN" target="_blank">
+              <i class="fa-solid fa-check-circle"></i> เช็คชื่อ
+            </a>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- อาทิตย์ -->
     <div class="day">
       <h2><i class="fa-solid fa-heart"></i> อาทิตย์</h2>
-
       <div class="subject">
         <img src="Wirat.jpg" class="teacher-img" alt="อ.วิรัตร">
         <div class="subject-info">
           <p><i class="fa-solid fa-book-open"></i> <strong>คอมพิวเตอร์กราฟิกและการสร้างสื่อผสม</strong></p>
           <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
           <p><i class="fa-solid fa-location-dot"></i> ห้อง 01312 / อ. วิรัตร บุตรวาปี</p>
+          <div class="lms-link">
+            <a href="https://lms.rmuti.ac.th/course/view.php?id=4062" target="_blank">
+              <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
+            </a>
+          </div>
         </div>
       </div>
 
@@ -227,6 +280,14 @@
           <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
           <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 20:00</p>
           <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
+          <div class="lms-link">
+            <a href="https://lms.rmuti.ac.th/course/view.php?id=4135" target="_blank">
+              <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDq0gaktp6bBscqLlPhHDJtgIb0i7crSns4Zt69vPdgFcStQ/formResponse?usp=pp_url&entry.571757533=67152340020-1&01&entry.482483840=Mr.%20NATCHANON%20KUNSAN" target="_blank">
+              <i class="fa-solid fa-check-circle"></i> เช็คชื่อ
+            </a>
+          </div>
         </div>
       </div>
     </div>
