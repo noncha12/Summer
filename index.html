@@ -200,19 +200,19 @@
       color: white;
     }
 
-    body.light .lms-link a:hover {
-      background: #9c27b0;
-    }
+    body.light {
+  background: linear-gradient(270deg, #dceefb, #ede7f6, #ffe4ec, #e0f7fa, #f3e5f5);
+  background-size: 1000% 1000%;
+  animation: gradientFlow 30s ease infinite;
+  color: #333;
+}
 
-    @media (max-width: 768px) {
-      .timetable h1 { font-size: 28px; }
-      .day h2 { font-size: 20px; }
-      .subject p { font-size: 13px; }
-      .teacher-img {
-        width: 60px;
-        height: 60px;
-      }
-    }
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 
     #rain-canvas {
       position: fixed;
