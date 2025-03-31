@@ -7,6 +7,7 @@
   <title>ตารางเรียนซัมเมอร์</title>
   <link href="https://fonts.googleapis.com/css2?family=Prompt&family=Itim&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
   <style>
     body {
       margin: 0;
@@ -229,13 +230,38 @@
       z-index: -1;
       pointer-events: none;
     }
+
+
+    .subject:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s ease;
+}
+
+
+
+.current-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  color: #ffd3ec;
+  font-family: 'Itim', cursive;
+}
+
+body.light .current-time {
+  color: #6a1b9a;
+}
   </style>
+
 </head>
 <body>
-
 <div class="timetable">
   <h1><i class="fa-solid fa-calendar-days"></i> ตารางเรียนซัมเมอร์</h1>
   <p class="name">🌸 NATCHANON 🌸</p>
+  <p class="current-time">🕒 ขณะนี้เวลา:<span id="current-time"></span></p>
+
   <button id="toggle-theme"><i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode</button>
 
   <div class="day-columns">
@@ -408,7 +434,26 @@
   });
 
   startRainIfDarkMode();
+
+
+
+
+  function updateClock() {
+  const now = new Date();
+  const timeString = now.toLocaleTimeString('th-TH', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+  document.getElementById('current-time').textContent = timeString;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
 </script>
+
+
 
 </body>
 </html>
