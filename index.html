@@ -268,6 +268,58 @@ body.light .current-time {
   color: #6a1b9a;
 }
 
+/* Toggle Switch Style */
+.switch {
+  display: block;
+  margin: 0 auto 30px;
+  position: relative;
+  width: 80px;
+  height: 40px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #444c5c;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: background-color 0.4s;
+}
+
+.slider::before {
+  position: absolute;
+  content: "🌙";
+  height: 30px;
+  width: 30px;
+  left: 5px;
+  bottom: 5px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+input:checked + .slider {
+  background-color: #ffd1dc;
+}
+
+input:checked + .slider::before {
+  content: "☀️";
+  transform: translateX(40px);
+}
+
   </style>
 
 </head>
@@ -277,7 +329,12 @@ body.light .current-time {
   <p class="name">🌸 NATCHANON 🌸</p>
   <p class="current-time">🕒 ขณะนี้เวลา:<span id="current-time"></span></p>
 
-  <button id="toggle-theme"><i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode</button>
+  <!-- ปุ่ม Toggle Light/Dark Mode -->
+<label class="switch">
+  <input type="checkbox" id="toggle-theme-switch">
+  <span class="slider"></span>
+</label>
+
 
   <div class="day-columns">
     <!-- วันเสาร์ -->
@@ -440,14 +497,14 @@ function drawRain() {
   setInterval(updateSunPosition, 60000);
   updateSunPosition();
 
-  toggleBtn.addEventListener("click", () => {
-    body.classList.toggle("light");
-    toggleBtn.innerHTML = body.classList.contains("light")
-      ? '<i class="fa-solid fa-moon"></i> เปลี่ยนเป็น Dark Mode'
-      : '<i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode';
-    startRainIfDarkMode();
-    updateSunPosition();
-  });
+  const themeSwitch = document.getElementById("toggle-theme-switch");
+
+themeSwitch.addEventListener("change", () => {
+  body.classList.toggle("light");
+  startRainIfDarkMode();
+  updateSunPosition();
+});
+
 
   window.addEventListener("resize", () => {
     initRain();
