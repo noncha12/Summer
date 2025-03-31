@@ -146,7 +146,6 @@
       background: #ff5d9e;
     }
 
-    /* Light Mode: พื้นหลังฟ้า-ม่วงแบบพาสเทล */
     body.light {
       background: linear-gradient(135deg, #dceefb, #ede7f6);
       color: #333;
@@ -214,6 +213,35 @@
         height: 60px;
       }
     }
+
+    #rain-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    #sun {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, #ffeb3b, #fbc02d);
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(255, 235, 59, 0.8);
+      z-index: 0;
+      pointer-events: none;
+      display: none;
+      transition: left 1s linear;
+    }
+
+    body.light #sun {
+      display: block;
+    }
+
+    
   </style>
 </head>
 <body>
@@ -224,6 +252,7 @@
   <button id="toggle-theme"><i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode</button>
 
   <div class="day-columns">
+    <!-- วันเสาร์ -->
     <div class="day">
       <h2><i class="fa-solid fa-sun"></i> เสาร์</h2>
       <div class="subject">
@@ -250,7 +279,7 @@
             <a href="https://lms.rmuti.ac.th/course/view.php?id=4135" target="_blank">
               <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
             </a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDq0gaktp6bBscqLlPhHDJtgIb0i7crSns4Zt69vPdgFcStQ/formResponse?usp=pp_url&entry.571757533=67152340020-1&01&entry.482483840=Mr.%20NATCHANON%20KUNSAN" target="_blank">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDq0gaktp6bBscqLlPhHDJtgIb0i7crSns4Zt69vPdgFcStQ/formResponse" target="_blank">
               <i class="fa-solid fa-check-circle"></i> เช็คชื่อ
             </a>
           </div>
@@ -258,6 +287,7 @@
       </div>
     </div>
 
+    <!-- วันอาทิตย์ -->
     <div class="day">
       <h2><i class="fa-solid fa-heart"></i> อาทิตย์</h2>
       <div class="subject">
@@ -284,7 +314,7 @@
             <a href="https://lms.rmuti.ac.th/course/view.php?id=4135" target="_blank">
               <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
             </a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDq0gaktp6bBscqLlPhHDJtgIb0i7crSns4Zt69vPdgFcStQ/formResponse?usp=pp_url&entry.571757533=67152340020-1&01&entry.482483840=Mr.%20NATCHANON%20KUNSAN" target="_blank">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDq0gaktp6bBscqLlPhHDJtgIb0i7crSns4Zt69vPdgFcStQ/formResponse" target="_blank">
               <i class="fa-solid fa-check-circle"></i> เช็คชื่อ
             </a>
           </div>
@@ -294,15 +324,103 @@
   </div>
 </div>
 
+<!-- ดวงอาทิตย์ -->
+<div id="sun"></div>
+
+<!-- ฝนตก -->
+<canvas id="rain-canvas"></canvas>
+
 <script>
   const toggleBtn = document.getElementById("toggle-theme");
+  const body = document.body;
+  const canvas = document.getElementById("rain-canvas");
+  const ctx = canvas.getContext("2d");
+
+  let drops = [];
+
+  function initRain() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    drops = [];
+
+    for (let i = 0; i < 100; i++) {
+      drops.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        length: Math.random() * 20 + 10,
+        speed: Math.random() * 1.5 + 1,
+        xSpeed: Math.random() * 0.5 + 0.5
+      });
+    }
+  }
+
+  function drawRain() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "rgba(173,216,230,0.5)";
+    ctx.lineWidth = 1.2;
+
+    drops.forEach(drop => {
+      ctx.beginPath();
+      ctx.moveTo(drop.x, drop.y);
+      ctx.lineTo(drop.x - drop.xSpeed * 2, drop.y + drop.length);
+      ctx.stroke();
+
+      drop.x -= drop.xSpeed;
+      drop.y += drop.speed;
+
+      if (drop.y > canvas.height || drop.x < 0) {
+        drop.y = -drop.length;
+        drop.x = Math.random() * canvas.width;
+      }
+    });
+
+    if (!body.classList.contains("light")) {
+      requestAnimationFrame(drawRain);
+    }
+  }
+
+  function startRainIfDarkMode() {
+    if (!body.classList.contains("light")) {
+      canvas.style.display = "block";
+      initRain();
+      drawRain();
+    } else {
+      canvas.style.display = "none";
+    }
+  }
+
+  // ดวงอาทิตย์
+  const sun = document.getElementById("sun");
+  function updateSunPosition() {
+  if (!body.classList.contains("light")) return;
+
+  const now = new Date();
+  const hour = now.getHours() + now.getMinutes() / 60;
+  const percentage = Math.min(Math.max((hour - 6) / 12, 0), 1);
+  const screenWidth = window.innerWidth;
+  const sunX = percentage * (screenWidth - 80);
+  sun.style.left = `${sunX}px`;
+}
+
+
+  setInterval(updateSunPosition, 60000);
+  updateSunPosition();
+
   toggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light");
-    const isLight = document.body.classList.contains("light");
-    toggleBtn.innerHTML = isLight
+    body.classList.toggle("light");
+    toggleBtn.innerHTML = body.classList.contains("light")
       ? '<i class="fa-solid fa-moon"></i> เปลี่ยนเป็น Dark Mode'
       : '<i class="fa-solid fa-sun"></i> เปลี่ยนเป็น Light Mode';
+    startRainIfDarkMode();
+    updateSunPosition();
   });
+
+  window.addEventListener("resize", () => {
+    initRain();
+    updateSunPosition();
+  });
+
+  startRainIfDarkMode();
 </script>
 
 </body>
