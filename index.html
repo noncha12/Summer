@@ -1,537 +1,132 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#ff85b3" />
   <title>ตารางเรียนซัมเมอร์</title>
+
+  <!-- ฟอนต์และไอคอน -->
   <link href="https://fonts.googleapis.com/css2?family=Prompt&family=Itim&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Prompt', 'Itim', sans-serif;
-      background: linear-gradient(135deg, #1f2235, #2c2f4a);
-      color: #fff;
-      box-sizing: border-box;
-    }
 
-    .timetable {
-      max-width: 1100px;
-      margin: 30px auto;
-      padding: 20px;
-      border-radius: 25px;
-      background-color: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
-    body.light .timetable {
-  background: linear-gradient(270deg, #ffe0f0, #f6c2ff, #ffbddf);
-  background-size: 400% 400%;
-  animation: softPinkFlow 30s ease infinite;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-@keyframes softPinkFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-    .timetable h1 {
-      text-align: center;
-      font-size: 32px;
-      color: #ffb6e0;
-      margin-bottom: 10px;
-    }
-
-    .name {
-      text-align: center;
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: #ffc0f0;
-    }
-
-    #toggle-theme {
-      display: block;
-      margin: 0 auto 30px;
-      background: #444c5c;
-      color: #fff;
-      border: none;
-      padding: 10px 25px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-family: 'Itim';
-      max-width: 280px;
-      width: 100%;
-      font-size: 16px;
-    }
-
-    .day-columns {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .day {
-  flex: 1;
-  min-width: 280px;
-  padding: 20px;
-  border-radius: 20px;
-  background: linear-gradient(270deg, #634376, #2b3c76, #634376, #2b3c76);
-  background-size: 800% 800%;
-  animation: animateDayBg 20s ease infinite;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
-@keyframes animateDayBg {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-
-    .day h2 {
-      text-align: center;
-      font-size: 22px;
-      margin-bottom: 20px;
-      color: #ffccf2;
-    }
-
-    .subject {
-      background: linear-gradient(135deg, #1d1f2b, #292d3e);
-      border-radius: 15px;
-      margin-bottom: 20px;
-      padding: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .teacher-img {
-      width: 80px;
-      height: 80px;
-      border-radius: 15px;
-      object-fit: cover;
-      border: 2px solid #fff;
-    }
-
-    .subject-info {
-      margin-top: 10px;
-    }
-
-    .subject p {
-      margin: 6px 0;
-      font-size: 14px;
-      color: #ddd;
-    }
-
-    .subject strong {
-      color: #ff9acb;
-    }
-
-    .subject i {
-      margin-right: 6px;
-      color: #ff85b3;
-    }
-
-    .lms-link {
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .lms-link a {
-      display: inline-block;
-      background: #ff85b3;
-      color: #1f2235;
-      padding: 8px 14px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    .lms-link a i {
-      margin-right: 5px;
-      color: #000 !important;
-    }
-
-    .lms-link a:hover {
-      background: #ff5d9e;
-    }
-
-    body.light {
-      background: linear-gradient(135deg, #dceefb, #ede7f6);
-      color: #333;
-    }
-
-    body.light .timetable {
-      background-color: rgba(255, 255, 255, 0.85);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    }
-
-    body.light h1 {
-      color: #6a1b9a;
-    }
-
-    body.light .name {
-      color: #7b1fa2;
-    }
-
-    body.light #toggle-theme {
-      background: #b39ddb;
-      color: white;
-    }
-
-    body.light .day {
-      background: linear-gradient(135deg, #e3f2fd, #ede7f6);
-    }
-
-    body.light .day h2 {
-      color: #4a148c;
-    }
-
-
-    
-    body.light .subject {
-      background: #ffffff;
-      color: #333;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.05);
-    }
-
-    body.light .subject p {
-      color: #555;
-    }
-
-    body.light .subject strong {
-      color: #8e24aa;
-    }
-
-    body.light .subject i {
-      color: #ab47bc;
-    }
-
-    body.light .lms-link a {
-      background: #ba68c8;
-      color: white;
-    }
-
-    body.light {
-  background: linear-gradient(270deg, #dceefb, #ede7f6, #ffe4ec, #e0f7fa, #f3e5f5);
-  background-size: 1000% 1000%;
-  animation: gradientFlow 30s ease infinite;
-  color: #333;
-}
-
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-
-    #rain-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-
-    .subject:hover {
-  transform: translateY(-4px);
-  transition: transform 0.3s ease;
-}
-
-
-
-.current-time {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  margin-top: -10px;
-  margin-bottom: 20px;
-  color: #ffd3ec;
-  font-family: 'Itim', cursive;
-}
-
-body.light .current-time {
-  color: #6a1b9a;
-}
-
-/* Toggle Switch Style */
-.switch {
-  display: block;
-  margin: 0 auto 30px;
-  position: relative;
-  width: 80px;
-  height: 40px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  background-color: #444c5c;
-  border-radius: 34px;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transition: background-color 0.4s;
-}
-
-.slider::before {
-  position: absolute;
-  content: "🌙";
-  height: 30px;
-  width: 30px;
-  left: 5px;
-  bottom: 5px;
-  background-color: white;
-  border-radius: 50%;
-  transition: transform 0.4s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-}
-
-input:checked + .slider {
-  background-color: #ffd1dc;
-}
-
-input:checked + .slider::before {
-  content: "☀️";
-  transform: translateX(40px);
-}
-
-  </style>
-
+  <!-- เชื่อมกับไฟล์ CSS -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-<div class="timetable">
-  <h1><i class="fa-solid fa-calendar-days"></i> ตารางเรียนซัมเมอร์</h1>
-  <p class="name">🌸 NATCHANON 🌸</p>
-  <p class="current-time">🕒 ขณะนี้เวลา:<span id="current-time"></span></p>
 
-  <!-- ปุ่ม Toggle Light/Dark Mode -->
-<label class="switch">
-  <input type="checkbox" id="toggle-theme-switch">
-  <span class="slider"></span>
-</label>
-
-
-  <div class="day-columns">
-    <!-- วันเสาร์ -->
-    <div class="day">
-      <h2><i class="fa-solid fa-sun"></i> เสาร์</h2>
-      <div class="subject">
-        <img src="Kritsanapon.jpg" class="teacher-img" alt="อ.กฤษณพล">
-        <div class="subject-info">
-          <p><i class="fa-solid fa-book-open"></i> <strong>โครงสร้างคอมพิวเตอร์และระบบปฏิบัติการ</strong></p>
-          <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
-          <p><i class="fa-solid fa-location-dot"></i> ห้อง 01302 / อ. กฤษณพล เกิดทองคำ</p>
-          <div class="lms-link">
-            <a href="https://lms.rmuti.ac.th/course/view.php?id=3461" target="_blank">
-              <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="subject">
-        <img src="Pakpoom.jpg" class="teacher-img" alt="อ.ภาคภูมิ">
-        <div class="subject-info">
-          <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
-          <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 21:00</p>
-          <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
-          <div class="lms-link">
-            <a href="https://lms.rmuti.ac.th/course/view.php?id=4135" target="_blank">
-              <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
-            </a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDq0gaktp6bBscqLlPhHDJtgIb0i7crSns4Zt69vPdgFcStQ/formResponse?usp=pp_url&entry.571757533=67152340020-1&01&entry.482483840=Mr.%20NATCHANON%20KUNSAN" target="_blank">
-              <i class="fa-solid fa-check-circle"></i> เช็คชื่อ
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- วันอาทิตย์ -->
-    <div class="day">
-      <h2><i class="fa-solid fa-heart"></i> อาทิตย์</h2>
-      <div class="subject">
-        <img src="Wirat.jpg" class="teacher-img" alt="อ.วิรัตร">
-        <div class="subject-info">
-          <p><i class="fa-solid fa-book-open"></i> <strong>คอมพิวเตอร์กราฟิกและการสร้างสื่อผสม</strong></p>
-          <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
-          <p><i class="fa-solid fa-location-dot"></i> ห้อง 01312 / อ. วิรัตร บุตรวาปี</p>
-          <div class="lms-link">
-            <a href="https://lms.rmuti.ac.th/course/view.php?id=4062" target="_blank">
-              <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="subject">
-        <img src="Pakpoom.jpg" class="teacher-img" alt="อ.ภาคภูมิ">
-        <div class="subject-info">
-          <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
-          <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 20:00</p>
-          <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
-          <div class="lms-link">
-            <a href="https://lms.rmuti.ac.th/course/view.php?id=4135" target="_blank">
-              <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
-            </a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDq0gaktp6bBscqLlPhHDJtgIb0i7crSns4Zt69vPdgFcStQ/formResponse?usp=pp_url&entry.571757533=67152340020-1&01&entry.482483840=Mr.%20NATCHANON%20KUNSAN" target="_blank">
-              <i class="fa-solid fa-check-circle"></i> เช็คชื่อ
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- กล่องแจ้งเตือนน้ำท่วม -->
+  <div id="flood-alert" style="display: none;" class="flood-alert">
+    🌊 น้ำเริ่มท่วมแล้ว! ระดับน้ำกำลังเพิ่มขึ้น โปรดระวัง!
+    <button onclick="closeFloodAlert()">ปิด</button>
   </div>
-</div>
 
-<!-- ดวงอาทิตย์ -->
-<div id="sun"></div>
+  <!-- ปุ่มเคลียร์ฝน -->
+  <button id="clear-rain-btn" class="clear-rain-btn">🌀 เคลียร์ฝน</button>
 
-<!-- ฝนตก -->
-<canvas id="rain-canvas"></canvas>
+  <!-- พื้นที่สำหรับฝนตก -->
+  <canvas id="rain-canvas"></canvas>
 
-<script>
-  const toggleBtn = document.getElementById("toggle-theme");
-  const body = document.body;
-  const canvas = document.getElementById("rain-canvas");
-  const ctx = canvas.getContext("2d");
+  <!-- พื้นที่แสดงน้ำ -->
+  <div class="flood" id="flood"></div>
 
-  let drops = [];
+  <!-- ดวงอาทิตย์ -->
+  <div id="sun"></div>
 
-  function initRain() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  drops = [];
+  <!-- กล่องตารางเรียน -->
+  <div class="timetable">
+    <h1><i class="fa-solid fa-calendar-days"></i> ตารางเรียนซัมเมอร์</h1>
+    <p class="name">🌸 NATCHANON 🌸</p>
+    <p class="current-time">🕒 ขณะนี้เวลา: <span id="current-time"></span></p>
 
-  for (let i = 0; i < 100; i++) {
-    const direction = Math.random() < 0.5 ? -1 : 1; // ซ้ายหรือขวา
-    drops.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      length: Math.random() * 20 + 10,
-      speed: Math.random() * 1.2 + 0.8,
-      xSpeed: direction * (Math.random() * 0.5 + 0.2), // แกว่งซ้ายขวาเบา ๆ
-    });
-  }
-}
+    <!-- สวิตช์เปลี่ยนโหมด -->
+    <label class="switch">
+      <input type="checkbox" id="toggle-theme-switch">
+      <span class="slider"></span>
+    </label>
 
+    <div class="day-columns">
+      <!-- วันเสาร์ -->
+      <div class="day">
+        <h2><i class="fa-solid fa-sun"></i> เสาร์</h2>
 
-function drawRain() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = "rgba(173,216,230,0.3)";
-  ctx.lineWidth = 1.1;
+        <div class="subject">
+          <img src="Kritsanapon.jpg" class="teacher-img" alt="อ.กฤษณพล">
+          <div class="subject-info">
+            <p><i class="fa-solid fa-book-open"></i> <strong>โครงสร้างคอมพิวเตอร์และระบบปฏิบัติการ</strong></p>
+            <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
+            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01302 / อ. กฤษณพล เกิดทองคำ</p>
+            <div class="lms-link">
+              <a href="https://lms.rmuti.ac.th/course/view.php?id=3461" target="_blank">
+                <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
+              </a>
+            </div>
+          </div>
+        </div>
 
-  drops.forEach(drop => {
-    ctx.beginPath();
-    ctx.moveTo(drop.x, drop.y);
-    ctx.lineTo(drop.x + drop.xSpeed * 2, drop.y + drop.length);
-    ctx.stroke();
+        <div class="subject">
+          <img src="Pakpoom.jpg" class="teacher-img" alt="อ.ภาคภูมิ">
+          <div class="subject-info">
+            <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
+            <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 21:00</p>
+            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
+            <div class="lms-link">
+              <a href="https://lms.rmuti.ac.th/course/view.php?id=4135" target="_blank">
+                <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
+              </a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDq0gaktp6bBscqLlPhHDJtgIb0i7crSns4Zt69vPdgFcStQ/formResponse?usp=pp_url&entry.571757533=67152340020-1&01&entry.482483840=Mr.%20NATCHANON%20KUNSAN"
+                target="_blank">
+                <i class="fa-solid fa-check-circle"></i> เช็คชื่อ
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    drop.x += drop.xSpeed;
-    drop.y += drop.speed;
+      <!-- วันอาทิตย์ -->
+      <div class="day">
+        <h2><i class="fa-solid fa-heart"></i> อาทิตย์</h2>
 
-    // ถ้าหลุดขอบจอ ให้กลับมาใหม่
-    if (drop.y > canvas.height || drop.x < -20 || drop.x > canvas.width + 20) {
-      const direction = Math.random() < 0.5 ? -1 : 1;
-      drop.y = -drop.length;
-      drop.x = Math.random() * canvas.width;
-      drop.xSpeed = direction * (Math.random() * 0.5 + 0.2);
-    }
-  });
+        <div class="subject">
+          <img src="Wirat.jpg" class="teacher-img" alt="อ.วิรัตร">
+          <div class="subject-info">
+            <p><i class="fa-solid fa-book-open"></i> <strong>คอมพิวเตอร์กราฟิกและการสร้างสื่อผสม</strong></p>
+            <p><i class="fa-regular fa-clock"></i> เวลา 08:00 - 17:00</p>
+            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01312 / อ. วิรัตร บุตรวาปี</p>
+            <div class="lms-link">
+              <a href="https://lms.rmuti.ac.th/course/view.php?id=4062" target="_blank">
+                <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
+              </a>
+            </div>
+          </div>
+        </div>
 
-  if (!body.classList.contains("light")) {
-    requestAnimationFrame(drawRain);
-  }
-}
+        <div class="subject">
+          <img src="Pakpoom.jpg" class="teacher-img" alt="อ.ภาคภูมิ">
+          <div class="subject-info">
+            <p><i class="fa-solid fa-book-open"></i> <strong>ระบบสารสนเทศเชิงกลยุทธ์</strong></p>
+            <p><i class="fa-regular fa-clock"></i> เวลา 17:00 - 20:00</p>
+            <p><i class="fa-solid fa-location-dot"></i> ห้อง 01708 / อ. ภาคภูมิ หมีเงิน</p>
+            <div class="lms-link">
+              <a href="https://lms.rmuti.ac.th/course/view.php?id=4135" target="_blank">
+                <i class="fa-solid fa-link"></i> เข้าเรียนบน LMS
+              </a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDq0gaktp6bBscqLlPhHDJtgIb0i7crSns4Zt69vPdgFcStQ/formResponse?usp=pp_url&entry.571757533=67152340020-1&01&entry.482483840=Mr.%20NATCHANON%20KUNSAN"
+                target="_blank">
+                <i class="fa-solid fa-check-circle"></i> เช็คชื่อ
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
+    </div> <!-- ปิด day-columns -->
+  </div> <!-- ปิด timetable -->
 
-  function startRainIfDarkMode() {
-    if (!body.classList.contains("light")) {
-      canvas.style.display = "block";
-      initRain();
-      drawRain();
-    } else {
-      canvas.style.display = "none";
-    }
-  }
-
-  // ดวงอาทิตย์
-  const sun = document.getElementById("sun");
-  function updateSunPosition() {
-  if (!body.classList.contains("light")) return;
-
-  const now = new Date();
-  const hour = now.getHours() + now.getMinutes() / 60;
-  const percentage = Math.min(Math.max((hour - 6) / 12, 0), 1);
-  const screenWidth = window.innerWidth;
-  const sunX = percentage * (screenWidth - 80);
-  sun.style.left = `${sunX}px`;
-}
-
-
-  setInterval(updateSunPosition, 60000);
-  updateSunPosition();
-
-  const themeSwitch = document.getElementById("toggle-theme-switch");
-
-themeSwitch.addEventListener("change", () => {
-  body.classList.toggle("light");
-  startRainIfDarkMode();
-  updateSunPosition();
-});
-
-
-  window.addEventListener("resize", () => {
-    initRain();
-    updateSunPosition();
-  });
-
-  startRainIfDarkMode();
-
-
-
-
-  function updateClock() {
-  const now = new Date();
-  const timeString = now.toLocaleTimeString('th-TH', {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  });
-  document.getElementById('current-time').textContent = timeString;
-}
-
-setInterval(updateClock, 1000);
-updateClock();
-
-</script>
-
-
-
+  <!-- เชื่อมกับ script.js -->
+  <script src="script.js"></script>
 </body>
+
 </html>
