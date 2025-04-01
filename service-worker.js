@@ -1,7 +1,7 @@
 const cacheName = "summer-timetable-v1";
 const assets = [
   "./",
-  "./index.html",
+  "./index2.html",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png",
