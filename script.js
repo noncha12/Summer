@@ -65,11 +65,11 @@ function startRainIfDarkMode() {
 function increaseFlood() {
   if (!body.classList.contains("light")) {
     if (floodHeight < 50) {
-      floodHeight += 0.3;
+      floodHeight += 2;
       flood.style.height = floodHeight + "vh";
 
       // แจ้งเตือนเมื่อระดับน้ำเกิน 30vh
-      if (floodHeight >= 30 && !floodAlertShown) {
+      if (floodHeight >= 15 && !floodAlertShown) {
         document.getElementById("flood-alert").style.display = "block";
         floodAlertShown = true;
       }
