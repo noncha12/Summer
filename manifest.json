@@ -1,16 +1,11 @@
 {
   "name": "ตารางเรียนซัมเมอร์",
-  "short_name": "SummerTT",
+  "short_name": "Summer",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#e0d4ff",  
   "theme_color": "#ff85b3",
   "icons": [
-    {
-      "src": "icon-32.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
     {
       "src": "icon-192.png",
       "sizes": "192x192",
