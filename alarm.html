@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⏰ ตั้งนาฬิกาปลุก</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Prompt&display=swap" rel="stylesheet">
+</head>
+<body class="alarm-page">
+  <div class="alarm-card">
+    <h1>⏰ ตั้งนาฬิกาปลุก</h1>
+
+    <div class="realtime-clock" id="current-time">--:--:--</div>
+
+    <label for="alarm-time">เลือกเวลาปลุก:</label>
+    <input type="time" id="alarm-time">
+  
+
+    <p id="countdown">เหลือเวลา: -</p>
+    <p id="alarm-status">ยังไม่ได้ตั้งปลุก</p>
+
+    
+    <P><button onclick="setAlarm()">🔔 ตั้งปลุก</button></P> 
+
+    <P><button id="stop-button" onclick="stopAlarm()" style="display:none;">🛑 หยุดปลุก</button></P>
+
+    <a href="index.html" class="back-button">🏠 กลับหน้าแรก</a>
+
+    <audio id="alarm-audio" src="my-alarm.mp3" preload="auto" loop></audio>
+
+  </div>
+
+
+  
+  <script src="alarm-script.js"></script>
+</body>
+</html>
