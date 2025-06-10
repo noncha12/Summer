@@ -1,5 +1,7 @@
 // ===================== ตัวแปรหลัก ===================== 
 // อ้างอิง element ต่าง ๆ ที่ใช้ในระบบ
+let editIndex = null;
+
 const body = document.body;
 const canvas = document.getElementById("rain-canvas"); // canvas สำหรับฝนตก
 const ctx = canvas.getContext("2d"); // context สำหรับวาด
@@ -71,7 +73,7 @@ function startRainIfDarkMode() {
     canvas.style.display = "none";
   }
 }
-
+/*
 // ===================== น้ำท่วม =====================
 // ฟังก์ชันเพิ่มระดับน้ำเรื่อย ๆ
 function increaseFlood() {
@@ -86,7 +88,9 @@ function increaseFlood() {
     }
   }
 }
-setInterval(increaseFlood, 1000); // เรียกทุกวินาที
+setInterval(increaseFlood, 1000); // เรียกทุกวินาที 
+
+*/
 
 // ===================== ดอกซากุระใน Light Mode =====================
 // ฟังก์ชันสร้างกลีบดอกซากุระ (เฉพาะ Light Mode)
@@ -248,3 +252,152 @@ setInterval(() => {
   }
 }, 1000);
 
+
+
+
+
+// เมื่อโหลดหน้า ให้แสดงรายการโน้ตทั้งหมด
+window.onload = () => {
+  loadNotes();
+};
+
+// เมื่อโหลดหน้า ให้แสดงโน้ตทั้งหมด
+window.onload = () => {
+  loadNotes();
+};
+
+// ===================== ฟังก์ชันบันทึกโน้ต =====================
+function saveNote() {
+  const title = document.getElementById("noteTitle").value.trim();
+  const content = document.getElementById("noteInput").value.trim();
+
+  if (!title || !content) {
+    alert("กรุณากรอกทั้งชื่อและเนื้อหาโน้ต");
+    return;
+  }
+
+  const now = new Date();
+  const timestamp = now.toLocaleString('th-TH', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
+  const notes = JSON.parse(localStorage.getItem("mynotes")) || [];
+
+  if (editIndex !== null) {
+    // แก้ไขโน้ตเดิม
+    notes[editIndex] = { title, content, timestamp };
+    alert("อัปเดตโน้ตแล้ว!");
+    editIndex = null;
+  } else {
+    // เพิ่มโน้ตใหม่
+    notes.push({ title, content, timestamp });
+    alert("บันทึกโน้ตแล้ว!");
+  }
+
+  localStorage.setItem("mynotes", JSON.stringify(notes));
+  clearForm();
+  loadNotes();
+}
+
+// ===================== โหลดโน้ตทั้งหมด =====================
+function loadNotes() {
+  const noteList = document.getElementById("noteList");
+  noteList.innerHTML = "";
+
+  const notes = JSON.parse(localStorage.getItem("mynotes")) || [];
+
+  notes.forEach((note, index) => {
+    const li = document.createElement("li");
+    li.classList.add("note-card");
+
+    const h3 = document.createElement("h3");
+    h3.textContent = note.title;
+
+    const p = document.createElement("p");
+    p.textContent = note.content;
+
+    // ✅ แสดงวัน/เวลา ถ้ามี
+    if (note.timestamp) {
+      const time = document.createElement("small");
+      time.textContent = `🕒 บันทึกเมื่อ: ${note.timestamp}`;
+      time.style.display = "block";
+      time.style.marginTop = "5px";
+      time.style.color = "#888";
+      time.style.fontSize = "0.85rem";
+      li.appendChild(time);
+    }
+
+    // ปุ่มแก้ไข
+    const edit = document.createElement("button");
+    edit.textContent = "📝 แก้ไข";
+    edit.className = "edit-btn";
+    edit.onclick = () => editNote(index);
+
+    // ปุ่มลบ
+    const del = document.createElement("button");
+    del.textContent = "❌";
+    del.className = "delete-btn";
+    del.onclick = () => deleteNote(index);
+
+    // กลุ่มปุ่ม
+    const btnGroup = document.createElement("div");
+    btnGroup.className = "btn-group";
+    btnGroup.appendChild(edit);
+    btnGroup.appendChild(del);
+
+    // ใส่ทุกอย่างลงใน li
+    li.appendChild(h3);
+    li.appendChild(p);
+    li.appendChild(btnGroup);
+
+    noteList.appendChild(li);
+  });
+}
+
+// ===================== แก้ไขโน้ต =====================
+function editNote(index) {
+  const notes = JSON.parse(localStorage.getItem("mynotes")) || [];
+  const note = notes[index];
+
+  document.getElementById("noteTitle").value = note.title;
+  document.getElementById("noteInput").value = note.content;
+
+  editIndex = index;
+
+  document.getElementById("saveBtn").innerHTML = `
+    <img src="update.png" alt="update icon" style="width: 20px; vertical-align: middle; margin-right: 6px;">
+    อัปเดตโน้ต
+  `;
+}
+
+// ===================== ลบโน้ต (พร้อมแอนิเมชัน fade out) =====================
+function deleteNote(index) {
+  const notes = JSON.parse(localStorage.getItem("mynotes")) || [];
+  const noteList = document.getElementById("noteList");
+  const li = noteList.children[index];
+
+  li.classList.add("fade-out");
+
+  setTimeout(() => {
+    notes.splice(index, 1);
+    localStorage.setItem("mynotes", JSON.stringify(notes));
+    loadNotes();
+    clearForm();
+  }, 500);
+}
+
+// ===================== ล้างฟอร์ม =====================
+function clearForm() {
+  document.getElementById("noteTitle").value = "";
+  document.getElementById("noteInput").value = "";
+  editIndex = null;
+
+  document.getElementById("saveBtn").innerHTML = `
+    <img src="floppy-disk.png" alt="save icon" style="width: 20px; vertical-align: middle; margin-right: 6px;">
+    บันทึกโน้ต
+  `;
+}
